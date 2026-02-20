@@ -24,7 +24,67 @@ body{
   transition: background-color 0.3s ease, color 0.3s ease;
 }
 
-header h1{ margin: 18px 0 6px; font-size: 2rem; }
+header {
+  background: linear-gradient(135deg, var(--accent), var(--accent) 0%, rgba(110, 168, 254, 0.1) 100%);
+  border-bottom: 2px solid var(--accent);
+  margin-bottom: 2rem;
+  margin-left: 20px;
+  margin-right: 20px;
+  box-shadow: 0 8px 32px rgba(110, 168, 254, 0.2);
+  border-radius: 24px;
+  backdrop-filter: blur(10px);
+}
+
+header h1{
+  margin: 0 0 8px 0;
+  font-size: 2.5rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+  border-radius: 20px;
+}
+
+.subtitle {
+  margin: 0 0 16px 0;
+  font-size: 1rem;
+  color: var(--muted);
+  font-weight: 400;
+}
+
+.toolbar {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.btn.secondary {
+  background: transparent;
+  border: 2px solid var(--accent);
+  color: var(--accent);
+  text-decoration: none;
+  display: inline-flex;
+  align-items: center;
+  border-radius: 14px;
+}
+
+.btn.secondary:hover {
+  background: var(--accent);
+  color: #fff;
+}
+
+.btn:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 6px 16px rgba(0, 0, 0, 0.15);
+  transition: all 0.2s ease;
+}
+
+header .btn {
+  color: #fff;
+  background: var(--accent);
+  border: 2px solid var(--accent);
+}
 
 *{ box-sizing:border-box; }
 
@@ -37,12 +97,18 @@ body{
 
 input{
   flex:1;
-  padding: 10px 12px;
-  border-radius: 10px;
+  padding: 12px 14px;
+  border-radius: 14px;
   border:1px solid var(--border);
   background: transparent;
   color: var(--text);
   outline:none;
+  transition: all 0.3s ease;
+}
+
+input:focus {
+  border-color: var(--accent);
+  box-shadow: 0 0 12px rgba(110, 168, 254, 0.3);
 }
 .list{
   list-style:none;
@@ -51,13 +117,15 @@ input{
 }
 
 .btn{
-  padding: 10px 14px;
-  border-radius: 10px;
-  border:1px solid var(--border);
+  padding: 12px 20px;
+  border-radius: 14px;
+  border: none;
   background: var(--accent);
   color: #fff;
   cursor:pointer;
   font-weight: 600;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
 .stats{
@@ -69,11 +137,18 @@ input{
 .card{
   background:var(--card);
   border:1px solid var(--border);
-  border-radius: 16px;
-  padding: 16px;
-  box-shadow: 0 10px 22px rgba(0,0,0,.18);
+  border-radius: 20px;
+  padding: 24px;
+  box-shadow: 0 8px 24px rgba(0,0,0,.12);
+  transition: all 0.3s ease;
 }
 
+.card:hover {
+  box-shadow: 0 12px 32px rgba(0,0,0,.16);
+  transform: translateY(-2px);
+}
+
+header.container { padding: 32px 20px; }
 .container { max-width: 1200px; margin: 0 auto; padding: 20px; }
 .grid { display: grid; grid-template-columns: repeat(auto-fit, minmax(350px, 1fr)); gap: 20px; }
 .row { display: flex; gap: 8px; }
@@ -81,12 +156,17 @@ input{
 .item {
   background: rgba(255,255,255,.04);
   border: 1px solid var(--border);
-  border-radius: 10px;
-  padding: 12px;
+  border-radius: 14px;
+  padding: 14px;
   display: flex;
   justify-content: space-between;
   align-items: center;
-  transition: opacity 0.2s;
+  transition: all 0.3s ease;
+}
+
+.item:hover {
+  background: rgba(255,255,255,.08);
+  box-shadow: 0 4px 12px rgba(110, 168, 254, 0.15);
 }
 
 .item.done {
@@ -107,10 +187,12 @@ input{
 
 .badge {
   font-size: 0.75rem;
-  padding: 2px 6px;
-  border-radius: 4px;
+  padding: 4px 10px;
+  border-radius: 12px;
   background: rgba(110, 168, 254, 0.2);
   color: var(--accent);
+  font-weight: 500;
+  transition: all 0.2s ease;
 }
 
 .icon-btn {
@@ -118,14 +200,17 @@ input{
   border: none;
   cursor: pointer;
   font-size: 1.2rem;
-  padding: 0;
+  padding: 8px;
   margin: 0;
   opacity: 0.7;
-  transition: opacity 0.2s;
+  transition: all 0.3s ease;
+  border-radius: 8px;
 }
 
 .icon-btn:hover {
   opacity: 1;
+  background: rgba(110, 168, 254, 0.15);
+  transform: scale(1.1);
 }
 
 input[type="checkbox"] {
