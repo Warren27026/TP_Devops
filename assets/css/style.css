@@ -44,7 +44,7 @@ input{
   border-radius: 10px;
   border:1px solid var(--border);
   background: var(--accent);
-  /*color: #fff;*/
+  color: #fff;
   cursor:pointer;
   font-weight: 600;
 }
