@@ -1,5 +1,11 @@
 const STORAGE_KEY = "devops_dashboard_tasks";
+
+const taskForm = document.getElementById("taskForm");
+const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
+const totalCount = document.getElementById("totalCount");
+const doneCount = document.getElementById("doneCount");
+
 
 
 function loadTasks(){
@@ -15,6 +21,17 @@ function saveTasks(tasks){
 }
 
 let tasks = loadTasks();
+
+taskForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const label = taskInput.value.trim();
+  if (label) {
+    tasks.push({ id: Date.now(), label, done: false });
+    saveTasks(tasks);
+    taskInput.value = "";
+    render();
+  }
+});
 
 function render(){
   taskList.innerHTML = "";
@@ -65,6 +82,6 @@ function render(){
   const done = tasks.filter(t => t.done).length;
   totalCount.textContent = String(total);
   doneCount.textContent = String(done);
-
-  drawChart(done, total);
 }
+
+render();
