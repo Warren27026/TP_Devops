@@ -1,4 +1,5 @@
-:root{
+:root,
+[data-theme="dark"] {
   --bg:#0b1020;
   --card:#121a33;
   --text:#e8ecff;
@@ -6,11 +7,21 @@
   --accent:#6ea8fe;
   --border:rgba(255,255,255,.08);
 }
+
+[data-theme="light"] {
+  --bg:#f5f5f5;
+  --card:#ffffff;
+  --text:#1a1a1a;
+  --muted:#666666;
+  --accent:#0056b3;
+  --border:rgba(0,0,0,.1);
+}
 body{
   margin:0;
   font-family: system-ui, -apple-system, Segoe UI, Roboto, Arial, sans-serif;
   background:var(--bg);
   color:var(--text);
+  transition: background-color 0.3s ease, color 0.3s ease;
 }
 
 header h1{ margin: 18px 0 6px; font-size: 2rem; }
