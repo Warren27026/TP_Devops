@@ -3,6 +3,7 @@ name: CI/CD Static Site
 on:
   push:
     branches: ["main"]
+  workflow_dispatch:
 
 permissions:
   contents: write
@@ -16,7 +17,6 @@ jobs:
       - name: Checkout
         uses: actions/checkout@v4
 
-      # Vérifs CI
       - name: Check required files
         run: |
           test -f index.html
@@ -24,13 +24,10 @@ jobs:
           test -d assets
           echo " Project structure OK"
 
-
-      # Build Docker 
       - name: Build Docker image
         run: |
           docker build -t devops-static-site:ci .
 
-      # Étape déploiement simulée 
       - name: Simulated deploy command
         run: echo "Deploy could be: docker push ... && docker run ..."
 
@@ -39,7 +36,7 @@ jobs:
     needs: ci
     environment:
       name: github-pages
-      url: ${{ steps.deployment.outputs.page_url }}
+      url: "${{ steps.deployment.outputs.page_url }}"
     steps:
       - name: Checkout
         uses: actions/checkout@v4
