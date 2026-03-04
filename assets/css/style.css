@@ -86,6 +86,13 @@ header .btn {
   border: 2px solid var(--accent);
 }
 
+/* make canvas visible with a subtle border */
+#progressCanvas {
+  display: block;
+  border: 1px solid var(--border);
+  background: transparent;
+}
+
 *{ box-sizing:border-box; }
 
 body{
