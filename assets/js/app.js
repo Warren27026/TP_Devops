@@ -6,8 +6,8 @@ const taskList = document.getElementById("taskList");
 const totalCount = document.getElementById("totalCount");
 const doneCount = document.getElementById("doneCount");
 const toggleTheme = document.getElementById("toggleTheme");
-
-
+const canvas = document.getElementById("progressCanvas");
+const ctx = canvas.getContext("2d");
 function loadTasks(){
   try {
     return JSON.parse(localStorage.getItem(STORAGE_KEY)) ?? [];
@@ -82,6 +82,7 @@ function render(){
   const done = tasks.filter(t => t.done).length;
   totalCount.textContent = String(total);
   doneCount.textContent = String(done);
+  drawChart(done, total);
 }
 //fonction pour le thème
 
@@ -103,6 +104,63 @@ toggleTheme.addEventListener("click", () => {
   updateThemeButton(next);
 });
 
+function drawChart(done, total){
+  const w = canvas.width;
+  const h = canvas.height;
+  ctx.clearRect(0,0,w,h);
+
+  // no background fill: keep canvas transparent so card color shows
+  // (a plain fill was turning the area opaque black in some themes)
+  ctx.clearRect(0,0,w,h);
+
+  // donut geometry
+  const cx = w/2;
+  const cy = h/2;
+  const r = Math.min(w,h)*0.32;
+  const thickness = r*0.45;
+
+  const pct = total === 0 ? 0 : done/total;
+
+  // track (muted color)
+  ctx.strokeStyle = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--muted') || '#888';
+  ctx.beginPath();
+  ctx.lineWidth = thickness;
+  ctx.arc(cx, cy, r, 0, Math.PI*2);
+  ctx.stroke();
+
+  // progress (accent color)
+  ctx.strokeStyle = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--accent') || '#6ea8fe';
+  ctx.beginPath();
+  ctx.lineWidth = thickness;
+  ctx.arc(cx, cy, r, -Math.PI/2, -Math.PI/2 + Math.PI*2*pct);
+  ctx.stroke();
+
+  // text (primary text color)
+  ctx.fillStyle = getComputedStyle(document.documentElement)
+                    .getPropertyValue('--text') || '#000';
+  ctx.font = "600 26px system-ui";
+  ctx.fillText(`${Math.round(pct*100)}%`, cx - 28, cy + 10);
+  ctx.font = "14px system-ui";
+  ctx.fillText("tâches faites", cx - 42, cy + 34);
+}
+
+taskForm.addEventListener("submit", (e) => {
+  e.preventDefault();
+  const label = taskInput.value.trim();
+  if (!label) return;
+
+  tasks.unshift({
+    id: crypto.randomUUID(),
+    label,
+    done: false
+  });
+
+  taskInput.value = "";
+  saveTasks(tasks);
+  render();
+});
 initTheme();
 
 render();
