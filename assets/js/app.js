@@ -102,6 +102,7 @@ toggleTheme.addEventListener("click", () => {
   document.documentElement.setAttribute("data-theme", next);
   localStorage.setItem("theme", next);
   updateThemeButton(next);
+  render();
 });
 
 function drawChart(done, total){
@@ -109,29 +110,31 @@ function drawChart(done, total){
   const h = canvas.height;
   ctx.clearRect(0,0,w,h);
 
-  // no background fill: keep canvas transparent so card color shows
-  // (a plain fill was turning the area opaque black in some themes)
-  ctx.clearRect(0,0,w,h);
-
   // donut geometry
   const cx = w/2;
   const cy = h/2;
-  const r = Math.min(w,h)*0.32;
-  const thickness = r*0.45;
+  const r = Math.min(w,h)*0.35;
+  const thickness = r*0.4;
 
   const pct = total === 0 ? 0 : done/total;
 
-  // track (muted color)
+  // round line caps for smoother appearance
+  ctx.lineCap = 'round';
+  ctx.lineJoin = 'round';
+
+  // track (muted color, thinner)
   ctx.strokeStyle = getComputedStyle(document.documentElement)
                     .getPropertyValue('--muted') || '#888';
+  ctx.globalAlpha = 0.3;
   ctx.beginPath();
   ctx.lineWidth = thickness;
   ctx.arc(cx, cy, r, 0, Math.PI*2);
   ctx.stroke();
 
-  // progress (accent color)
+  // progress (accent color, brighter)
   ctx.strokeStyle = getComputedStyle(document.documentElement)
                     .getPropertyValue('--accent') || '#6ea8fe';
+  ctx.globalAlpha = 1;
   ctx.beginPath();
   ctx.lineWidth = thickness;
   ctx.arc(cx, cy, r, -Math.PI/2, -Math.PI/2 + Math.PI*2*pct);
@@ -140,10 +143,19 @@ function drawChart(done, total){
   // text (primary text color)
   ctx.fillStyle = getComputedStyle(document.documentElement)
                     .getPropertyValue('--text') || '#000';
-  ctx.font = "600 26px system-ui";
-  ctx.fillText(`${Math.round(pct*100)}%`, cx - 28, cy + 10);
+  
+  // percentage text - larger and centered
+  ctx.font = "bold 48px system-ui";
+  const percentText = `${Math.round(pct*100)}%`;
+  const percentMetrics = ctx.measureText(percentText);
+  ctx.fillText(percentText, cx - percentMetrics.width/2, cy - 5);
+  
+  // label text - smaller and centered
   ctx.font = "14px system-ui";
-  ctx.fillText("tâches faites", cx - 42, cy + 34);
+  ctx.globalAlpha = 0.8;
+  const labelText = "tâches faites";
+  const labelMetrics = ctx.measureText(labelText);
+  ctx.fillText(labelText, cx - labelMetrics.width/2, cy + 28);
 }
 
 taskForm.addEventListener("submit", (e) => {
