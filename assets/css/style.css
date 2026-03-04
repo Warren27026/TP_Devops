@@ -155,6 +155,17 @@ input:focus {
   transition: all 0.3s ease;
 }
 
+.card h2 {
+  margin-top: 0;
+  margin-bottom: 20px;
+  font-size: 1.4rem;
+  font-weight: 700;
+  background: linear-gradient(135deg, var(--text), var(--accent));
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
 .card:hover {
   box-shadow: 0 12px 32px rgba(0,0,0,.16);
   transform: translateY(-2px);
@@ -168,10 +179,10 @@ header.container { padding: 32px 20px; }
 .row { display: flex; gap: 8px; }
 
 .item {
-  background: rgba(255,255,255,.04);
+  background: linear-gradient(135deg, rgba(110, 168, 254, 0.05), rgba(110, 168, 254, 0.02));
   border: 1px solid var(--border);
   border-radius: 14px;
-  padding: 14px;
+  padding: 16px;
   display: flex;
   justify-content: space-between;
   align-items: center;
@@ -179,12 +190,14 @@ header.container { padding: 32px 20px; }
 }
 
 .item:hover {
-  background: rgba(255,255,255,.08);
-  box-shadow: 0 4px 12px rgba(110, 168, 254, 0.15);
+  background: linear-gradient(135deg, rgba(110, 168, 254, 0.12), rgba(110, 168, 254, 0.08));
+  box-shadow: 0 4px 16px rgba(110, 168, 254, 0.25);
+  border-color: var(--accent);
+  transform: translateX(4px);
 }
 
 .item.done {
-  opacity: 0.6;
+  opacity: 0.65;
 }
 
 .item.done span {
@@ -195,18 +208,32 @@ header.container { padding: 32px 20px; }
 .item-left {
   display: flex;
   align-items: center;
-  gap: 10px;
+  gap: 12px;
   flex: 1;
+  min-width: 0;
+}
+
+.item-left span:not(.badge) {
+  flex: 1;
+  word-break: break-word;
+  font-size: 0.95rem;
 }
 
 .badge {
-  font-size: 0.75rem;
-  padding: 4px 10px;
-  border-radius: 12px;
-  background: rgba(110, 168, 254, 0.2);
+  font-size: 0.7rem;
+  padding: 5px 12px;
+  border-radius: 20px;
+  background: rgba(110, 168, 254, 0.25);
   color: var(--accent);
-  font-weight: 500;
+  font-weight: 600;
+  white-space: nowrap;
+  flex-shrink: 0;
   transition: all 0.2s ease;
+}
+
+.item.done .badge {
+  background: rgba(34, 197, 94, 0.25);
+  color: #22c55e;
 }
 
 .icon-btn {
@@ -216,15 +243,21 @@ header.container { padding: 32px 20px; }
   font-size: 1.2rem;
   padding: 8px;
   margin: 0;
-  opacity: 0.7;
+  margin-left: 8px;
+  opacity: 0.6;
   transition: all 0.3s ease;
   border-radius: 8px;
+  flex-shrink: 0;
 }
 
 .icon-btn:hover {
   opacity: 1;
-  background: rgba(110, 168, 254, 0.15);
-  transform: scale(1.1);
+  background: rgba(239, 68, 68, 0.2);
+  transform: scale(1.15) rotate(15deg);
+}
+
+.icon-btn:active {
+  transform: scale(0.95);
 }
 
 input[type="checkbox"] {
