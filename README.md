@@ -1,4 +1,4 @@
-# DevOps Mini Dashboard (Static Site)
+# DevOps Mini Dashboard 
 
 Mini dashboard en HTML/CSS/JS (tâches + stats + graphique) avec Docker, Docker Compose et CI/CD via GitHub Actions + déploiement sur GitHub Pages.
 
@@ -6,8 +6,8 @@ Mini dashboard en HTML/CSS/JS (tâches + stats + graphique) avec Docker, Docker 
 - Ajout / suppression de tâches
 - Marquer une tâche comme faite
 - Sauvegarde via LocalStorage
-- Thème dark/light
-- Mini graphique Canvas (progression)
+- Thème sombre/clair
+- Mini graphique Canvas (progression) en camembert
 
 ## Lancer en local (sans Docker)
 Ouvre `index.html` dans ton navigateur.
