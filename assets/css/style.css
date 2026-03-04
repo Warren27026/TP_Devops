@@ -265,3 +265,12 @@ input[type="checkbox"] {
   width: 18px;
   height: 18px;
 }
+
+body {
+  font-family: 
+    "Segoe UI",
+    "Segoe UI Emoji",
+    "Segoe UI Symbol",
+    system-ui,
+    sans-serif;
+}
