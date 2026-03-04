@@ -5,7 +5,7 @@ const taskInput = document.getElementById("taskInput");
 const taskList = document.getElementById("taskList");
 const totalCount = document.getElementById("totalCount");
 const doneCount = document.getElementById("doneCount");
-
+const toggleTheme = document.getElementById("toggleTheme");
 
 
 function loadTasks(){
@@ -83,5 +83,26 @@ function render(){
   totalCount.textContent = String(total);
   doneCount.textContent = String(done);
 }
+//fonction pour le thème
+
+function initTheme(){
+  const saved = localStorage.getItem("theme") || "dark";
+  document.documentElement.setAttribute("data-theme", saved);
+  updateThemeButton(saved);
+}
+
+function updateThemeButton(theme) {
+  toggleTheme.textContent = theme === "dark" ? "☀️ Thème" : "🌙 Thème";
+}
+
+toggleTheme.addEventListener("click", () => {
+  const current = document.documentElement.getAttribute("data-theme") || "dark";
+  const next = current === "dark" ? "light" : "dark";
+  document.documentElement.setAttribute("data-theme", next);
+  localStorage.setItem("theme", next);
+  updateThemeButton(next);
+});
+
+initTheme();
 
 render();
